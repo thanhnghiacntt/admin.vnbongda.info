@@ -1,0 +1,60 @@
+
+.selected-day {
+
+}
+
+.unavailable {
+  color: #E6E6E6;
+}
+
+.hide {
+  display: none;
+}
+
+.datepicker {
+  position: absolute;
+  border: 1px solid #c5c5c5;
+}
+
+.datepicker table {
+  background: #fff;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border: 1px solid silver;
+  border-top: none;
+  font-family: arial;
+  min-width: 220px;
+}
+
+.datepicker td,
+.datepicker th {
+  padding: 5px;
+  text-align: center;
+  outline: 1px solid white;
+  border: 1px solid #c5c5c5;
+  background: #f6f6f6;
+  font-weight: normal;
+  color: #454545;
+}
+
+td.today {
+  border: 1px solid #dad55e;
+  background: #fffa90;
+}
+
+.datepicker td {
+  cursor: pointer;
+}
+
+.datepicker th {
+  font-size: 12px;
+  border-bottom: none;
+}
+
+.datepicker caption {
+  text-align: center;
+  background: #fff;
+  border: 1px solid silver;
+  border-bottom: none;
+  padding: 5px;
+}

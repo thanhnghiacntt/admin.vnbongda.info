@@ -1,0 +1,13 @@
+/*Common element*/
+@font-face {
+  font-family: Icons;
+  src: url("icon-fonts/icons.eot");
+  src: url("icon-fonts/icons.eot?#iefix") format('embedded-opentype'),
+  url("icon-fonts/icons.woff2") format('woff2'),
+  url("icon-fonts/icons.woff") format('woff'),
+  url("icon-fonts/icons.ttf") format('truetype'),
+  url("icon-fonts/icons.svg#icons") format('svg');
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+}

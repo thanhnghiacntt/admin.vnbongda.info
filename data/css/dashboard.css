@@ -1,0 +1,67 @@
+.common-statistic {
+  background: #4096ee; /* Old browsers */
+  background: -moz-linear-gradient(right, #1e88d8, #1ed208); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, #1e88d8, #1ed208); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, #1E84D6, #1eD0D8); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4096ee', endColorstr='#7abcff', GradientType=1); /* IE6-9 */
+  color: #FFFFFF;
+  padding: .5em;
+}
+
+.common-statistic .grid {
+  margin: 0;
+  padding: 1rem 0;
+}
+
+.common-statistic .ui.column {
+  min-width: 150px;
+  padding: 0;
+}
+
+.common-statistic img.ui.top.aligned.tiny.image {
+  width: 60px;
+  padding: 0;
+}
+
+.common-statistic .common-item {
+  padding: 1em 1em 0 1em;
+  display: block;
+  min-width: 100px;
+}
+
+.common-statistic .value {
+  font-size: 28px;
+  padding: 5px 0;
+}
+
+.common-statistic .label {
+  font-size: 16px;
+  padding: 5px 0;
+}
+
+.common-statistic .column.ui:not(:first-child) {
+  border-left: 1px solid #FFFFFF;
+}
+
+.common-statistic .column.ui:first-child .image {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.common-statistic .ui.grid > .column:not(.row) {
+  padding: 0;
+}
+
+.chart-statistics .statistic.small.ui.white.cat-item {
+  flex-grow: 1;
+  text-transform: uppercase;
+  flex-basis: 16.66%;
+  max-width: calc(16.66% - 1rem);
+  margin: .5rem;
+  padding: 10px;
+}
+
+.chart-statistics .ui.tiny.statistics:nth-child(4n) {
+  margin-right: 0;
+}
