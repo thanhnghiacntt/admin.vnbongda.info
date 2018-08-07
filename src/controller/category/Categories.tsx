@@ -265,43 +265,12 @@ export default class Categories extends React.Component<CategoriesProperties, Ca
                                type={"textarea"}
                                onChange={(value) => {
                                }}/>
-                    <TextField caption="Min Zoom"
-                               value={cat.minZoom || "N/A"}
-                               readOnly={"readOnly"}
-                               isRequired={true}
-                               onChange={(value) => {
-                               }}/>
-                    <TextField caption="Max Zoom"
-                               value={cat.maxZoom || "N/A"}
+                    <TextField caption="Order by"
+                               value={cat.orderBy || "N/A"}
                                isRequired={true}
                                readOnly={"readOnly"}
                                onChange={(value) => {
                                }}/>
-                    <CheckBoxField name="Set On"
-                                   value={cat.isOn}
-                                   disabled={true}
-                                   onClick={e => cat.isOn = e}/>
-                    <div className="field">
-                      <label>Color</label>
-                      {
-                        cat.color ?
-                          <ColorsPicker
-                            allowPick={false}
-                            initColor={cat.color}
-                          /> : <span>N/A</span>
-                      }
-                    </div>
-                    <div className="field">
-                      <label>Icon</label>
-                      {
-                        cat.icon ?
-                          <IconImage isBase64={true} readOnly={true}
-                                     src={cat.icon}/> :
-                          <IconImage readOnly={true} src={'/data/no-image.png'}/>
-                      }
-                    </div>
-
-
                   </div>
                 </div> : null
             }

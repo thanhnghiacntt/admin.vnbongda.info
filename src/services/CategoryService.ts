@@ -18,10 +18,6 @@ export class CategoryService extends ResourceService<Configuration> {
     this.endPoint = Config.apiEndpoint;
   }
 
-  async getCategory(start: number, limit: number, query: string) {
-    //GET /api/category/getdatapaging
-  }
-
   /**
    * Get category by id
    * @param id

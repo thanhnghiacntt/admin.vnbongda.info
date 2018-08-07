@@ -8,17 +8,13 @@ import {Helper} from "../../utils/Helper";
 import {CategoryService} from "../../services/CategoryService";
 import {Category, categoryResponseCode} from "../../models/Category";
 import {match, Redirect} from 'react-router';
-import {ComboBoxItem} from "../common/utils/ComboBoxItem";
 import TreeView from "../../common/components/treeview/TreeView";
 import {NodeData} from "../../common/components/treeview/TreeNode";
-import {ColorsPicker} from "../../common/components/colorpicker/ColorsPicker";
-import {IconImage} from "../../common/components/canvasimage/IconImage";
 import {TextArea} from "../../common/components/input/TextArea";
 import {Menu} from "semantic-ui-react"
 import {Spinner} from "../../common/components/loader/Spinner";
 import {Dialog, DialogType} from "../../common/components/dialog/Dialog";
 import DropDownList from "../../common/components/dropdownlist/DropDownList";
-import {CheckBoxField} from "../../common/components/checkbox/CheckBoxField";
 
 interface Params {
   catId?: string;
@@ -29,7 +25,6 @@ interface State {
   hasChanges?: boolean,
   message?: string,
   category?: Category
-  lstCat?: ComboBoxItem[],
   treeNodes?: NodeData[],
   currentNodeText?: string,
 
@@ -51,7 +46,6 @@ export class EditCategory extends React.Component<Props, State> {
    */
   state: State = {
     category: {},
-    lstCat: [],
     treeNodes: [],
     currentNodeText: ""
   };
@@ -211,7 +205,7 @@ export class EditCategory extends React.Component<Props, State> {
    */
   validData(): boolean {
     let cat = this.state.category;
-    if (Helper.isNullOrEmpty(cat.name) || !this.validSlug(cat.slug) || (cat.minZoom && cat.maxZoom && cat.minZoom > cat.maxZoom)) {
+    if (Helper.isNullOrEmpty(cat.name) || !this.validSlug(cat.slug)) {
       return false;
     }
 
@@ -236,7 +230,7 @@ export class EditCategory extends React.Component<Props, State> {
    */
   render() {
     let arrZoomLevel = [];
-    for (let i = 13; i <= 19; i++)
+    for (let i = 0; i <= 50; i++)
       arrZoomLevel.push({text: i, value: i});
 
     let cat = this.state.category;
@@ -318,52 +312,13 @@ export class EditCategory extends React.Component<Props, State> {
                     state.hasChanges = true;
                   }}/>
                 <DropDownList
-                  label="Min Zoom"
+                  label="Order by"
                   data={arrZoomLevel}
-                  defaultValue={cat.minZoom}
+                  defaultValue={cat.orderBy}
                   onChange={(value) => {
-                    cat.minZoom = +value;
+                    cat.orderBy = +value;
                     this.setState({})
                   }}/>
-
-                <DropDownList
-                  label="Max Zoom"
-                  data={arrZoomLevel}
-                  defaultValue={cat.maxZoom}
-                  onChange={(value) => {
-                    cat.maxZoom = +value;
-                    this.setState({})
-                  }}/>
-                {
-                  state.doValidate && cat.maxZoom && cat.maxZoom && cat.maxZoom < cat.minZoom ?
-                    <div className="field">
-                      <div className="ui basic red pointing prompt label transition visible">
-                        "Max zoom must be greater than or equal min zoom"
-                      </div>
-                    </div> : null
-                }
-
-                <CheckBoxField name="Set On"
-                               value={cat.isOn}
-                               onClick={e => cat.isOn = e}/>
-                <div className="field">
-                  <label>Color</label>{
-                  <ColorsPicker initColor={this.state.category.color}
-                                onChange={(value) => {
-                                  this.state.category.color = value;
-                                  this.setState({})
-                                }}/>}
-                </div>
-                <div className="field">
-                  <label>Icon</label>
-                  <IconImage
-                    isBase64={true}
-                    limit={12}
-                    src={this.state.category.icon}
-                    onChange={(base64) => {
-                      this.state.category.icon = base64;
-                    }}/>
-                </div>
               </div>
             </div>
           </div>

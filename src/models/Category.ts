@@ -10,10 +10,6 @@ export interface Category {
 
   parentName?: string,
 
-  color?: string ,
-
-  icon?: string,
-
   children?: Category[];
 
   hasChildren?: boolean;
@@ -26,11 +22,7 @@ export interface Category {
 
   slug?: string;
 
-  minZoom?: number;
-
-  maxZoom?: number;
-
-  isOn?: boolean;
+  orderBy?: number;
 }
 export var categoryResponseCode =
 {
