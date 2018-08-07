@@ -59,7 +59,7 @@ export class CategoryService extends ResourceService<Configuration> {
    */
   forceDelCategoryById(id: string) {
     const url = this.name + "/force-delete/" + id;
-    var response = this.client.delete(url);
+    let response = this.client.delete(url);
     return response;
   }
 
@@ -68,26 +68,15 @@ export class CategoryService extends ResourceService<Configuration> {
    * @param id
    */
   getCategories() {
-    const url = this.name;
-    var response = this.client.get(url);
+    const url = this.name + "/list";
+    let response = this.client.get(url);
+debugger;
     return response;
   }
 
   getChildren(id?: string) {
-    const url = this.name + "/children" + ((id || "").length > 0 ? "?categoryId=" + id : "");
-    var response = this.client.get(url);
-    return response;
-  }
-
-  async getListGoogleConfig() {
-    const url = this.name + "/catelgory-google";
-    var response = await this.client.get(url);
-    return response;
-  }
-
-  async applyZoomForCategory(slug, min, max) {
-    const url = this.name + "/update-min-max/" + min + "/" + max;
-    var response = await this.client.post(url, slug);
+    const url = this.name + "/children" + ((id || "").length > 0 ? "?id=" + id : "");
+    let response = this.client.get(url);
     return response;
   }
 }
