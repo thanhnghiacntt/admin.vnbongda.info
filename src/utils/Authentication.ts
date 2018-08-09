@@ -147,8 +147,6 @@ export class Authentication {
         let value = response.data;
         Authentication.save(value);
         callback(value);
-      } else {
-        window.location.href = Config.portalLoginUrl + "?returnurl=" + window.location.origin + window.location.pathname;
       }
     } catch (error) {
       console.log(error)

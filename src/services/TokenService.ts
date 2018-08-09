@@ -26,9 +26,9 @@ export class TokenService {
    * @param token
    * @param callback
    */
-  loginByToken(token: string) {
+  async loginByToken(token: string) {
     let data = token;
-    return this.client.post("/users/loginByToken", data);
+    return await this.client.post("/users/loginByToken", data);
   }
 
 
@@ -38,11 +38,12 @@ export class TokenService {
    * @param password
    * @param callback
    */
-  login(user: string, password: string) {
+  async login(user: string, password: string) {
     let data = {
-      "userName": user,
+      "username": user,
       "password": password
     };
-    return this.client.post("/users/authenticate", data);
+    let rs =  await this.client.post("/user/login", data);
+    return rs;
   }
 }

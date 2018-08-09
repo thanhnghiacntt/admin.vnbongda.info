@@ -70,7 +70,6 @@ export class CategoryService extends ResourceService<Configuration> {
   getCategories() {
     const url = this.name + "/list";
     let response = this.client.get(url);
-debugger;
     return response;
   }
 
