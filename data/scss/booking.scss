@@ -1,0 +1,10 @@
+.panel {
+    background: #fff;
+    margin-bottom: 0;
+}
+.panel+.panel {
+    margin-top: 5px;
+}
+.panel-body {
+    padding: 15px;
+}

@@ -1,41 +1,81 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import {AuthorizeRoute} from "./utils/AuthorizeRoute"
-import App from "./application/App";
-import LoginPage from "./controller/users/LoginPage";
-import NotFound from "./application/NotFound";
-import ForgotPassword from "./controller/users/ForgotPassword";
-import ResetPassword from "./controller/users/ResetPasswords";
-import Dashboard from "./dashboard/DashboardPage";
-import AddUser from "./controller/users/AddUser";
-import Users from "./controller/users/Users";
-import Categories from "./controller/category/Categories";
-import {EditCategory} from "./controller/category/EditCategory";
-import UserProfile from "./controller/users/UserProfile";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+
+import {HashRouter as Router, Route, Switch, Redirect, HashRouter} from 'react-router-dom';
+
+import {Unsubscribe} from "redux"
+import {AppEvent, AppStore, Language} from './redux/AppStore';
+import {AuthorizeRoute} from "./helpers/AuthorizeRoute"
+import {NotFoundComponent} from "./containers/NotFoundComponent";
+import {LoginComponent} from "./containers/LoginComponent";
+import {Layout} from "./containers/Layout";
+import {Product} from "./controllers/Product";
+import {Solution} from "./controllers/Solution";
+import {Document} from "./controllers/Document";
+import {Company} from "./controllers/Company";
+import {Price} from "./controllers/Price";
+import {SignIn} from "./controllers/SignIn";
+import NotFound from "./controllers/NotFound";
+import {Cookie} from "./helpers/Cookie";
+import {Home} from "./controllers/Home";
+import {Setting} from "./controllers/Setting";
+import {SignUp} from "./controllers/SignUp";
+import {UserService} from "./services/UserService";
+import {SignKey} from "./controllers/SignKey";
+
+class AppRouter extends React.Component {
+
+  unsubscribe: Unsubscribe;
+
+  componentWillMount(){
+    AppStore.postEvent(AppEvent.initialize, Cookie.get("language") || Language.en);
+  }
+
+  render() {
+    return (
+      <Router>
+        <Layout>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/product" component={Product} />
+            <Route exact path="/solution" component={Solution}/>
+            <Route exact path="/document" component={Document}/>
+            <Route exact path="/company" component={Company}/>
+            <Route exact path="/price" component={Price}/>
+            <Route exact path="/signin" component={SignIn}/>
+            <AuthorizeRoute exact path="/user/setting" component={Setting}/>
+            <AuthorizeRoute exact path="/user/keys" component={SignKey}/>
+            <Route component={NotFound} />
+          </Switch>
+        </Layout>
+      </Router>
+    )
+  }
+
+  componentDidMount() {
+    this.unsubscribe = AppStore.subscribe((state) => {
+      //refresh app
+      switch (state.event) {
+        case AppEvent.changeLanguague:
+        case AppEvent.redirect:
+        case AppEvent.login:
+          this.setState({});
+          break;
+        case AppEvent.logout:
+          UserService.shared.logout();
+          this.setState({});
+          break;
+      }
+    })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
+  }
+}
+
 
 ReactDOM.render(
-  <Router>
-    <Switch>
-      <Route exact path="/login" component={LoginPage} />
-      <Route exact path="/forgotpassword" component={ForgotPassword} />
-      <Route exact path="/resetpassword/:token" component={ResetPassword}/>
-      <App>
-        <Switch>
-          <AuthorizeRoute exact path="/" component={Dashboard} />
-          <AuthorizeRoute exact path="/dashboard" component={Dashboard}/>
-          <AuthorizeRoute exact path="/profile" component={UserProfile}/>
-          <AuthorizeRoute exact path="/users" component={Users}/>
-          <AuthorizeRoute exact path="/users/edit/:userId" component={AddUser}/>
-          <AuthorizeRoute exact path="/users/edit" component={AddUser}/>
-          <AuthorizeRoute exact path="/category" component={Categories}/>
-          <AuthorizeRoute exact path="/category/edit" component={EditCategory}/>
-          <AuthorizeRoute exact path="/category/edit/:catId" component={EditCategory}/>
-          <AuthorizeRoute component={NotFound} />
-        </Switch>
-      </App>
-    </Switch>
-  </Router>,
-  document.getElementById('root')
+  <AppRouter/>,
+  document.getElementById("root")
 );
-

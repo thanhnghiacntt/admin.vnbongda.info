@@ -2,22 +2,20 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "sourceMap": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
+    "keyofStringsOnly": true,
     "module": "commonjs",
     "target": "es6",
     "jsx": "react",
-    "lib" : ["es2015", "es2015.iterable", "dom"],
+    "lib" : ["es2015", "ES6","DOM", "es2015.iterable", "DOM.Iterable"],
     "allowSyntheticDefaultImports": true
   },
   "include": [
+    "./dts/react-datetime.d.ts",
     "./src/**/*"
   ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
-  ],
-  "files": [
-    "src/index.tsx",
-    "src/common/libraries/index.d.ts"
   ]
 }
