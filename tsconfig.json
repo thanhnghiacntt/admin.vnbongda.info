@@ -11,7 +11,7 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "./dts/react-datetime.d.ts",
+    "./src/lib/react-datetime.d.ts",
     "./src/**/*"
   ],
   "exclude": [
