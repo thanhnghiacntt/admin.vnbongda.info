@@ -94,7 +94,7 @@ export class NavbarContaint extends React.Component<any, {}> {
       this.redirect = false;
       return (<Redirect to={this.redirectLink} />)
     }
-    let lang = UserService.shared.getLanguage();
+    let lang = Authentication.getLanguage();
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-blue">
         <div className="collapse navbar-collapse" id="navbarNav">
@@ -110,12 +110,10 @@ export class NavbarContaint extends React.Component<any, {}> {
                 <Dropdown.Toggle>
                   {lang == "en" && <i title="English"><img src="/data/images/en.svg" /></i>}
                   {lang == "vi" && <i title="Tiếng Việt"><img src="/data/images/vi.svg" /></i>}
-                  {lang == "cn" && <i title="中国"><img src="/data/images/cn.svg" /></i>}
                 </Dropdown.Toggle>
                 <Dropdown.Menu onSelect={this.handleSelect} className="dropdown-item bg-blue">
                   {lang !== "en" && <MenuItem eventKey="lang_en"><img src="/data/images/en.svg" />English</MenuItem>}
                   {lang !== "vi" && <MenuItem eventKey="lang_vi"><img src="/data/images/vi.svg" />Tiếng Việt</MenuItem>}
-                  {lang !== "cn" && <MenuItem eventKey="lang_cn"><img src="/data/images/cn.svg" />中国</MenuItem>}
                 </Dropdown.Menu>
               </Dropdown>
             </li>
@@ -129,7 +127,7 @@ export class NavbarContaint extends React.Component<any, {}> {
                     </Dropdown.Toggle>
                     <Dropdown.Menu onSelect={this.handleSelect} className="dropdown-item bg-blue">
                       <MenuItem eventKey="setting"><i className="fa fa-cog"></i>{this.strings.setting}</MenuItem>
-                      <MenuItem eventKey="logout"><i className="fa fa-lock"></i>{this.strings.logout}</MenuItem>
+                      <MenuItem eventKey="logout"><i className="fa fa-sign-out"></i>{this.strings.logout}</MenuItem>
                     </Dropdown.Menu>
                   </Dropdown>
                 </li>: null

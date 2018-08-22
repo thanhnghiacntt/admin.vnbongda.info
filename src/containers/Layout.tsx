@@ -7,7 +7,7 @@ import { Redirect } from "react-router";
 import "../../data/scss/style.scss";
 import { AppEvent, AppStore } from "../redux/AppStore";
 import {Unsubscribe} from "redux";
-// import logo from "../Images/logo.png";
+import {Authentication} from "../helpers/Authentication";
 
 export interface LayoutProps {
 }
@@ -36,11 +36,11 @@ export class Layout extends Component<LayoutProps, LayoutState> {
   }
 
   logout = () => {
-    UserService.shared.logout();
+    Authentication.logout();
     this.redirect = true;
     AppStore.postEvent(AppEvent.logout, false);
     this.setState({})
-  }
+  };
 
   render() {
     if(this.redirect){

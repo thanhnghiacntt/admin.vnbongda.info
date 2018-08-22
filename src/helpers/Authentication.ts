@@ -23,13 +23,17 @@ export class Authentication {
    * @param data
    */
   public static save(data: any) {
-    if (data != null && data.accessToken != null && data.user != null) {
-      let date = new Date(data.expirationTime);
-      Cookie.set(CookieKey.token, data.accessToken, date);
+    if (data != null && data.token != null && data.user != null) {
+      let date = this.getExpritime(data.token);
+      Cookie.set(CookieKey.token, data.token, date);
       Cookie.set(CookieKey.user, JSON.stringify(data.user), date);
     }
   }
 
+  /**
+   * Save user
+   * @param user
+   */
   public static saveUser(user: any){
     Cookie.set(CookieKey.user, JSON.stringify(user));
   }
@@ -67,6 +71,10 @@ export class Authentication {
     return null;
   }
 
+  /**
+   * Get token
+   * @returns {any}
+   */
   public static getToken(){
     return Cookie.get(CookieKey.token)
   }
@@ -101,6 +109,22 @@ export class Authentication {
       }
     }
     return false;
+  }
+
+  /**
+   * Get language
+   * @returns {*}
+   */
+  public static getLanguage() {
+    return Cookie.get(CookieKey.language) || "en"
+  }
+
+  /**
+   * Save language
+   * @param language
+   */
+  public static saveLanguage(language: any) {
+    return Cookie.set(CookieKey.language, language)
   }
 
   /**
@@ -148,9 +172,33 @@ export class Authentication {
         });
       }
     } catch (error) {
-      console.log(error)
-      Authentication.logout()
+      console.log(error);
+      Authentication.logout();
       callback(null);
     }
+  }
+
+  /**
+   * Parse JWT
+   * @param {string} token
+   * @returns {any}
+   */
+  public static parseJWT(token: string){
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+  }
+
+  /**
+   * Parse JWT
+   * @param {string} token
+   * @returns {any}
+   */
+  public static getExpritime(token: string): Date {
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace('-', '+').replace('_', '/');
+    let payload = JSON.parse(window.atob(base64));
+    let date = new Date(payload.exp * 1000);
+    return date;
   }
 }

@@ -2,13 +2,11 @@ import * as React from "react";
 import { match } from "react-router";
 import * as Resource from "../Language"
 import { AppStore, AppEvent } from "../redux/AppStore";
-export interface Props {
+export interface HomeProps {
   match: match<any>
 }
 
-// 'HelloProps' describes the shape of props.
-// State is never set so we use the 'undefined' type.
-export class Price extends React.Component<Props, {}> {
+export class AdminPost extends React.Component<HomeProps, {}> {
 
   strings = AppStore.getState().strings;
 
@@ -17,6 +15,6 @@ export class Price extends React.Component<Props, {}> {
   }
 
   render() {
-    return <h1>Price</h1>;
+    return <h1>AdminPost</h1>;
   }
 }

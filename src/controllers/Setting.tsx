@@ -17,6 +17,12 @@ export class Setting extends React.Component<Props, {}> {
   }
 
   render() {
-    return <h1>Setting</h1>;
+    return <div>
+      <div className="row">
+        <div className="col-md-3">3</div>
+        <div className="col-md-6">6</div>
+        <div className="col-md-3">3</div>
+      </div>
+    </div>;
   }
 }

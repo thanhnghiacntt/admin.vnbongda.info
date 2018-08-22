@@ -5,6 +5,7 @@ import { AppEvent, AppStore, Language } from "../redux/AppStore";
 import { BrowserRouter as Router, Redirect, NavLink, Link } from 'react-router-dom';
 import { Nav, NavItem, NavDropdown, MenuItem, Dropdown } from 'react-bootstrap';
 import {NavbarContaint} from "./NavbarContaint";
+import {Authentication} from "../helpers/Authentication";
 export interface NavBarProps {
   onLogOut?: Function
   changeLanguage?: Function
@@ -29,7 +30,7 @@ export class NavBar extends React.Component<any, {}> {
       this.redirect = false;
       return (<Redirect to={this.redirectLink} />)
     }
-    let lang = UserService.shared.getLanguage()
+    let lang = Authentication.getLanguage();
     return (
       <div className="navbar navbar-dark bg-primary">
         <NavbarContaint/>

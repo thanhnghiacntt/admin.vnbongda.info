@@ -6,22 +6,19 @@ import {HashRouter as Router, Route, Switch, Redirect, HashRouter} from 'react-r
 import {Unsubscribe} from "redux"
 import {AppEvent, AppStore, Language} from './redux/AppStore';
 import {AuthorizeRoute} from "./helpers/AuthorizeRoute"
-import {NotFoundComponent} from "./containers/NotFoundComponent";
-import {LoginComponent} from "./containers/LoginComponent";
 import {Layout} from "./containers/Layout";
-import {Product} from "./controllers/Product";
-import {Solution} from "./controllers/Solution";
-import {Document} from "./controllers/Document";
-import {Company} from "./controllers/Company";
-import {Price} from "./controllers/Price";
-import {SignIn} from "./controllers/SignIn";
-import NotFound from "./controllers/NotFound";
+import {Login} from "./controllers/Login";
 import {Cookie} from "./helpers/Cookie";
 import {Home} from "./controllers/Home";
 import {Setting} from "./controllers/Setting";
-import {SignUp} from "./controllers/SignUp";
 import {UserService} from "./services/UserService";
-import {SignKey} from "./controllers/SignKey";
+import {Post} from "./controllers/Post";
+import {Category} from "./controllers/Category";
+import {AdminGallery} from "./controllers/AdminGallery";
+import {NotFound} from "./controllers/NotFound";
+import {AdminPost} from "./controllers/AdminPost";
+import {AdminCategory} from "./controllers/AdminCategory";
+import {Authentication} from "./helpers/Authentication";
 
 class AppRouter extends React.Component {
 
@@ -37,14 +34,13 @@ class AppRouter extends React.Component {
         <Layout>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/product" component={Product} />
-            <Route exact path="/solution" component={Solution}/>
-            <Route exact path="/document" component={Document}/>
-            <Route exact path="/company" component={Company}/>
-            <Route exact path="/price" component={Price}/>
-            <Route exact path="/signin" component={SignIn}/>
+            <Route exact path="/post" component={Post} />
+            <Route exact path="/category" component={Category}/>
+            <Route exact path="/login" component={Login}/>
+            <AuthorizeRoute exact path="/user/gallery" component={AdminGallery}/>
+            <AuthorizeRoute exact path="/user/post" component={AdminPost}/>
+            <AuthorizeRoute exact path="/user/category" component={AdminCategory}/>
             <AuthorizeRoute exact path="/user/setting" component={Setting}/>
-            <AuthorizeRoute exact path="/user/keys" component={SignKey}/>
             <Route component={NotFound} />
           </Switch>
         </Layout>
@@ -62,7 +58,7 @@ class AppRouter extends React.Component {
           this.setState({});
           break;
         case AppEvent.logout:
-          UserService.shared.logout();
+          Authentication.logout();
           this.setState({});
           break;
       }

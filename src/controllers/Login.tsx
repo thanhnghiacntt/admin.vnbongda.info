@@ -3,7 +3,7 @@ import { match } from "react-router";
 import { AppStore, AppEvent } from "../redux/AppStore";
 import {UserService} from "../services/UserService";
 import {Helper} from "../helpers/Helper";
-import {SignUp} from "./SignUp";
+import {Authentication} from "../helpers/Authentication";
 export interface Props {
   match: match<any>
 }
@@ -12,20 +12,18 @@ export interface StateLogin {
   errorMessage?: string;
   username?: string;
   password?: string;
-  isRegister?: boolean;
 }
 
 // 'HelloProps' describes the shape of props.
 // State is never set so we use the 'undefined' type.
-export class SignIn extends React.Component<Props, StateLogin> {
+export class Login extends React.Component<Props, StateLogin> {
 
   userService = new UserService();
   strings = AppStore.getState().strings;
   state: StateLogin = {
     errorMessage: null,
     username: "",
-    password: "",
-    isRegister: false
+    password: ""
   };
 
 
@@ -61,15 +59,6 @@ export class SignIn extends React.Component<Props, StateLogin> {
             </div>
           </div>
           <div className="col-md-3">
-            <div className="form-control-feedback">
-              {
-                this.state.errorMessage != null ?
-                <span className="text-danger align-middle">
-                  <i className="fa fa-close"></i> {this.state.errorMessage}
-                </span>: null
-              }
-
-            </div>
           </div>
         </div>
         <div className="row">
@@ -111,18 +100,19 @@ export class SignIn extends React.Component<Props, StateLogin> {
             <button type="submit" className="btn btn-success" onClick={()=>this.login()}><i className="fa fa-sign-in"></i>{this.strings.login}</button>
             <a className="btn btn-link" href="/password/reset">{this.strings.forgetpassword}</a>
           </div>
-          <div className="col-md-2">
-            <div className={this.state.isRegister? "btn-group" : "btn-group dropup"}>
-              <button type="button" onClick={()=>{this.setState({isRegister : !this.state.isRegister})}}
-                      className="btn btn-success dropdown-toggle">{this.strings.register}</button>
+          <div className="col-md-5">
+            <div className="form-control-feedback">
+              {
+                this.state.errorMessage != null ?
+                  <span className="text-danger align-middle">
+                  <i className="fa fa-close"></i> {this.state.errorMessage}
+                </span>: null
+              }
+
             </div>
           </div>
         </div>
       </div>
-      <div className="distance"></div>
-      {
-        this.state.isRegister ? <SignUp/> : null
-      }
     </div>
   }
 
@@ -132,6 +122,7 @@ export class SignIn extends React.Component<Props, StateLogin> {
   login(){
     this.userService.login(this.state.username, this.state.password, (data)=> {
       if(data.code == "success"){
+        Authentication.save(data.data);
         Helper.navigateTo("/");
       }else{
         this.setState({errorMessage: data.message});

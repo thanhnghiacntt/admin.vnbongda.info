@@ -4,6 +4,7 @@ import LocalizedStrings from 'react-localization'
 import * as ResourceLanguage from "../Language"
 import { UserService } from '../services/UserService';
 import { Cookie } from '../helpers/Cookie';
+import {Authentication} from "../helpers/Authentication";
 
 export enum Language {
   en = "en", vi = "vi", cn = "cn"
@@ -54,7 +55,7 @@ export class AppStore {
       case AppEvent.changeLanguague:
         state.currentLanguage = action.payload as Language;
         state.strings.setLanguage(state.currentLanguage);
-        UserService.shared.saveLanguage(state.currentLanguage);
+        Authentication.saveLanguage(state.currentLanguage);
         break;
       case AppEvent.login:
         state.isLoggedIn = action.payload as boolean;

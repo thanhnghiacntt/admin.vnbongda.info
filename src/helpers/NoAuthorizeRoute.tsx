@@ -1,6 +1,7 @@
 import * as React from "react";
 import {Route, Redirect} from "react-router";
 import {Component} from "react";
+import {UserService} from "../services/UserService";
 import {Authentication} from "./Authentication";
 
 
@@ -17,9 +18,9 @@ export class PrivateRoute extends Route {
   }
 }
 
-export const AuthorizeRoute = ({ component: Component, ...rest }: any) => (
+export const NotAuthorizeRoute = ({ component: Component, ...rest }: any) => (
   <Route {...rest} render={props => (
-    Authentication.isLogin() ? (
+    !Authentication.isLogin() ? (
       <Component {...props}/>
     ) : (
       <Redirect to={{

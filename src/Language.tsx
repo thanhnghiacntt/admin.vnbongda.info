@@ -35,7 +35,9 @@ export default {
     "passwordempty": "Password is empty",
     "confirmpasswordempty": "Confirm password is empty",
     "confirmpasswordincorect": "Confirm password is incorrect",
-    "key": "Key"
+    "key": "Key",
+    "category": "Category",
+    "post": "Post"
   },
   "vi": {
     "home": "Trang chủ",
@@ -73,6 +75,8 @@ export default {
     "passwordempty": "Mật khẩu bị trống",
     "confirmpasswordempty": "Mật khẩu xác nhận bị trống",
     "confirmpasswordincorect": "Mật khẩu xác nhận và mật khẩu không khớp",
-    "key": "Key"
+    "key": "Key",
+    "category": "Danh mục",
+    "post": "Bài đăng"
   }
 }

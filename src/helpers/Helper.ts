@@ -1,4 +1,5 @@
 import {AppEvent, AppStore} from "../redux/AppStore";
+import * as moment from "moment";
 
 /**
  * Class helper utils
@@ -123,6 +124,19 @@ export class Helper {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Format date
+   * @param date
+   * @returns {string}
+   */
+  static dateFormart(date: any): string {
+    let mdate = moment(date)
+    if (mdate.isValid) {
+      return mdate.format("DD/MM/YYYY")
+    }
+    return
   }
 
 

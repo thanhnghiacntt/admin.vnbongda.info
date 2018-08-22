@@ -1,8 +1,7 @@
 import {Cookie} from "../helpers/Cookie";
-import {Callback, RequestHeaders, HttpClient} from '../helpers/HttpClient';
-import {AppStore, AppEvent} from '../redux/AppStore';
+import {Callback} from '../helpers/HttpClient';
 import {CookieKey} from "../helpers/CookieKey";
-import {WebPromotion} from "./WebPromotion";
+import {ResourceService} from "./ResourceService";
 
 /**
  * Created by kem on 8/27/17.
@@ -24,59 +23,21 @@ export interface Customer {
 }
 
 
-export class UserService {
-
-  static shared = new UserService();
-
+export class UserService extends ResourceService{
   constructor() {
-
+    super("user")
   }
 
   login(email: string, password: string, callback: Callback) {
-
-    let path = "user/login";
-    let header: RequestHeaders = {};
-    header["lang"] = "en";
-
-    let params: any = {};
-    params["username"] = email;
-    params["password"] = password;
-
-    WebPromotion.post(path, params, (response => {
-      if (response.code == "success") {
-        let expried = new Date(response.data.expirationTime);
-        Cookie.set(CookieKey.token, response.data.accessToken, expried);
-        Cookie.set(CookieKey.user, JSON.stringify(response.data.user), expried);
-        AppStore.postEvent(AppEvent.setToken, response.data.token);
-        callback(response)
-      } else {
-        callback(response)
-      }
-    }))
+    let data: any = {
+      "username":email,
+      "password":password
+    };
+    this.post("login", data, callback);
   }
 
-  register(data: any, callback: Function){
-    let path = "user";
-    WebPromotion.post(path, data, (data: any) => {
-      callback(data);
-    })
-  }
-
-  logout() {
-    Cookie.unset(CookieKey.token);
-    Cookie.unset(CookieKey.user);
-  }
-
-  isLoggedIn() {
-    return Cookie.get(CookieKey.token) != null
-  }
-
-  getLanguage() {
-    return Cookie.get(CookieKey.language) || "en"
-  }
-
-  saveLanguage(language: any) {
-    return Cookie.set(CookieKey.language, language)
+  register(data: any, callback: Callback){
+    this.save("create", data, callback);
   }
 }
 

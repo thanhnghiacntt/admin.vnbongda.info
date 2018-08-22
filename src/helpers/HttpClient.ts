@@ -1,4 +1,3 @@
-
 export interface RequestHeaders {
   [key: string]: string
 }
@@ -12,61 +11,123 @@ export enum Method {
   DELETE = "DELETE"
 }
 
-export type Callback = (response: any) => void
+export type Callback = (response: HttpResponse) => void
 
-export interface Response {
-  success?: boolean,
+export interface HttpResponse {
+  code?: string,
   message?: string,
   data?: any
 }
 
 export class HttpClient {
 
-  get(url: string, params: any, headers: RequestHeaders, callback: Callback){
-    return this.sendRequest(Method.GET, url, params, headers, callback)
+  /**
+   * list of header to send with the request
+   */
+  headers: RequestHeaders = {};
+
+  /**
+   * create a http client with base url and access token
+   */
+  constructor() {
   }
 
-  post(url: string, params: any, headers: RequestHeaders, callback: Callback){
-    return this.sendRequest(Method.POST, url, params, headers, callback)
+  /**
+   * set header field
+   * @param name name of the header
+   * @param value value of the header field
+   */
+  setHeader(name: string, value: string) {
+    this.headers[name] = value;
   }
 
-  put(url: string, params: any, headers: RequestHeaders, callback: Callback){
-    return this.sendRequest(Method.PUT, url, params, headers, callback)
+  /**
+   * Method get
+   * @param {string} full url
+   * @param {Callback} callback
+   * @param data at body
+   * @returns {XMLHttpRequest}
+   */
+  get(url: string, data?: any, callback?: Callback) {
+    return this.sendRequest(Method.GET, url, data, callback);
   }
 
-  patch(url: string, params: any, headers: RequestHeaders, callback: Callback){
-    return this.sendRequest(Method.PATCH, url, params, headers, callback)
+  /**
+   * Method post
+   * @param {string} full url
+   * @param {Callback} callback
+   * @param data at body
+   * @returns {XMLHttpRequest}
+   */
+  post(url: string, data?: any, callback?: Callback) {
+    return this.sendRequest(Method.POST, url, data, callback);
   }
 
-  delete(url: string, params: any, headers: RequestHeaders, callback: Callback){
-    return this.sendRequest(Method.DELETE, url, params, headers, callback)
+  /**
+   * Method put
+   * @param {string} full url
+   * @param {Callback} callback
+   * @param data at body
+   * @returns {XMLHttpRequest}
+   */
+  put(url: string, data?: any, callback?: Callback){
+    return this.sendRequest(Method.PUT, url, data, callback);
   }
 
-  sendRequest(method: Method, url: string, data: any, headers: RequestHeaders, callback: Callback){
+  /**
+   * Method patch
+   * @param {string} full url
+   * @param {Callback} callback
+   * @param data at body
+   * @returns {XMLHttpRequest}
+   */
+  patch(url: string, data?: any, callback?: Callback){
+    return this.sendRequest(Method.PATCH, url, data, callback);
+  }
+
+  /**
+   * Method delete
+   * @param {string} full url
+   * @param {Callback} callback
+   * @param data at body
+   * @returns {XMLHttpRequest}
+   */
+  delete(url: string, data?: any, callback?: Callback){
+    return this.sendRequest(Method.DELETE, url, data, callback);
+  }
+
+  /**
+   * Send request
+   * @param {Method} method
+   * @param {string} full url
+   * @param data at body
+   * @param {Callback} callback
+   * @returns {XMLHttpRequest}
+   */
+  sendRequest(method: Method, url: string, data: any, callback: Callback){
     let request = new XMLHttpRequest();
 
     request.onload = (event) => {
       let req = event.target as XMLHttpRequest;
-      let content = {};
+      let content: HttpResponse = {};
       let error = false;
       try {
         content = JSON.parse(req.responseText)
       }
       catch (err){
         content = {
-          success: false,
+          code: "exception",
           message: "Response is not valid json format",
           data: req.responseText
         }
       }
-
       callback(content)
     };
 
     request.ontimeout = (event) => {
       let req = event.target as XMLHttpRequest;
-      let content = {
-        success: false,
+      let content: HttpResponse = {
+        code: "exception",
         message: "Request timeout",
         data: req.responseText
       };
@@ -76,28 +137,21 @@ export class HttpClient {
     request.onerror = (event) => {
       let req = event.target as XMLHttpRequest;
       let content = {
-        success: false,
+        code: "exception",
         message: "Request error",
         data: req.responseText
       };
       callback(content)
     };
-
-    if (method == "GET"){
-      request.open(method, this.buildUrl(url, data), true)
-    }
-    else
-    {
-      request.open(method, url, true);
-    }
+    request.open(method, url, true);
 
     if (data != null){
       request.setRequestHeader("Content-Type", "application/json");
     }
 
-    if (headers != null) {
-      for (let key in headers){
-        request.setRequestHeader(key, headers[key])
+    if (this.headers != null) {
+      for (let key in this.headers){
+        request.setRequestHeader(key, this.headers[key]);
       }
     }
 
