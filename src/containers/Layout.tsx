@@ -1,5 +1,4 @@
 import * as React from "react";
-import { MenuComponent } from './MenuComponent'
 import { NavBar } from './NavBar'
 import { UserService } from "../services/UserService";
 import { Component } from "react";

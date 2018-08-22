@@ -4,7 +4,7 @@ import { UserService } from "../services/UserService";
 import { AppEvent, AppStore, Language } from "../redux/AppStore";
 import { BrowserRouter as Router, Redirect, NavLink, Link } from 'react-router-dom';
 import { Nav, NavItem, NavDropdown, MenuItem, Dropdown } from 'react-bootstrap';
-import {MenuComponent} from "./MenuComponent";
+import {Menu} from "./Menu";
 import {Authentication} from "../helpers/Authentication";
 export interface NavBarProps {
   onLogOut?: Function
@@ -103,7 +103,7 @@ export class NavbarContaint extends React.Component<any, {}> {
               <img src="/data/images/logo.jpg" onClick={()=>{this.redirect = true; this.setState({})}}></img>
             </li>
           </ul>
-          <MenuComponent />
+          <Menu />
           <ul className="ml-auto navbar-nav">
             <li className="nav-item language">
               <Dropdown id="avata-toggle" className="bg-blue">

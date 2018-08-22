@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import {HashRouter as Router, Route, Switch, Redirect, HashRouter} from 'react-router-dom';
+import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 
 import {Unsubscribe} from "redux"
 import {AppEvent, AppStore, Language} from './redux/AppStore';
@@ -11,7 +11,6 @@ import {Login} from "./controllers/Login";
 import {Cookie} from "./helpers/Cookie";
 import {Home} from "./controllers/Home";
 import {Setting} from "./controllers/Setting";
-import {UserService} from "./services/UserService";
 import {Post} from "./controllers/Post";
 import {Category} from "./controllers/Category";
 import {AdminGallery} from "./controllers/AdminGallery";

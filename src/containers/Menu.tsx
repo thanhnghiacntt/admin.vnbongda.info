@@ -13,7 +13,7 @@ export interface MenuState {
 
 // 'HelloProps' describes the shape of props.
 // State is never set so we use the 'undefined' type.
-export class MenuComponent extends React.Component<MenuProps, MenuState> {
+export class Menu extends React.Component<MenuProps, MenuState> {
 
   strings = AppStore.getState().strings;
 
