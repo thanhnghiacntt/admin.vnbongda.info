@@ -1,3 +1,5 @@
+import {Authentication} from "./Authentication";
+
 export interface RequestHeaders {
   [key: string]: string
 }
@@ -154,6 +156,7 @@ export class HttpClient {
         request.setRequestHeader(key, this.headers[key]);
       }
     }
+    request.setRequestHeader("lang", Authentication.getLanguage());
 
     request.setRequestHeader("Accept", "application/json");
 

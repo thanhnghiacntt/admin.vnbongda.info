@@ -37,7 +37,8 @@ export default {
     "confirmpasswordincorect": "Confirm password is incorrect",
     "key": "Key",
     "category": "Category",
-    "post": "Post"
+    "post": "Post",
+    "gallery": "Gallery"
   },
   "vi": {
     "home": "Trang chủ",
@@ -77,6 +78,7 @@ export default {
     "confirmpasswordincorect": "Mật khẩu xác nhận và mật khẩu không khớp",
     "key": "Key",
     "category": "Danh mục",
-    "post": "Bài đăng"
+    "post": "Bài đăng",
+    "gallery": "Quản lý hình ảnh"
   }
 }

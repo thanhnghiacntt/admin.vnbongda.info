@@ -1,10 +1,75 @@
 import {AppEvent, AppStore} from "../redux/AppStore";
 import * as moment from "moment";
+import UserEntity from "../models/UserEntity";
+import GalleryEntity from "../models/GalleryEntity";
+import CategoryEntity from "../models/CategoryEntity";
 
 /**
  * Class helper utils
  */
 export class Helper {
+
+  /**
+   * Convert
+   * @param data
+   * @param {string} obj
+   * @returns {any}
+   */
+  public static convert(data: any, obj: string){
+    if(Array.isArray(data)){
+      let rs: Array<any> = [];
+      data.forEach((value, index)=>{
+        let temp = Helper.converObjectToObject(value, obj);
+        rs.push(temp);
+      });
+      return rs;
+    }else{
+      return Helper.converObjectToObject(data, obj);
+    }
+  }
+
+  /**
+   *
+   * @param objSrc is UserEntity or CategoryEntity or GallerEntity
+   * @param {string} objDest
+   */
+  public static converObjectToObject(objSrc: any, objDest: string): any{
+    switch (objDest){
+      case "UserEntity":
+        let user : UserEntity = {
+          id : objSrc["id"],
+          firstName: objSrc["first_name"],
+          lastName: objSrc["last_name"],
+          username: objSrc["username"],
+          email: objSrc["email"],
+          phone: objSrc["phone"],
+          avatar: objSrc["avatar"],
+          role:objSrc["role"]
+        };
+        return user;
+
+      case "CategoryEntity":
+        let category : CategoryEntity = {
+          id : objSrc["id"],
+          description: objSrc["description"],
+          name: objSrc["name"],
+          orderBy: objSrc["order_by"],
+          parentId: objSrc["parent_id"],
+          slug: objSrc["id"]
+        };
+        return category;
+
+      case "GallerEntity":
+        let gallery : GalleryEntity = {
+          id : objSrc["id"],
+          image: objSrc["image"],
+          description: objSrc["description"],
+          title: objSrc["title"]
+        };
+        return gallery;
+    }
+    return null;
+  }
 
   /**
    * Check is null or empty

@@ -47,16 +47,6 @@ export class NavbarContaint extends React.Component<any, {}> {
     this.setState({})
   }
 
-  handleToggleSidebar = () => {
-    let $root = $('#root');
-    if ($root.hasClass("sidebar-hidden")) {
-      $root.removeClass("sidebar-hidden")
-    }
-    else {
-      $root.addClass("sidebar-hidden")
-    }
-  };
-
   handleSelect = (eventKey: any) => {
     switch (eventKey) {
       case "logout":
