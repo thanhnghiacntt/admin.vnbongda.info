@@ -37,31 +37,31 @@ export class Helper {
     switch (objDest){
       case "UserEntity":
         let user : UserEntity = {
-          id : objSrc["id"],
+          id : +objSrc["id"],
           firstName: objSrc["first_name"],
           lastName: objSrc["last_name"],
           username: objSrc["username"],
           email: objSrc["email"],
           phone: objSrc["phone"],
           avatar: objSrc["avatar"],
-          role:objSrc["role"]
+          role: objSrc["role"]
         };
         return user;
 
       case "CategoryEntity":
         let category : CategoryEntity = {
-          id : objSrc["id"],
+          id : +objSrc["id"],
           description: objSrc["description"],
           name: objSrc["name"],
-          orderBy: objSrc["order_by"],
-          parentId: objSrc["parent_id"],
-          slug: objSrc["id"]
+          orderBy: +objSrc["order_by"],
+          parentId: +objSrc["parent_id"],
+          slug: objSrc["slug"]
         };
         return category;
 
       case "GallerEntity":
         let gallery : GalleryEntity = {
-          id : objSrc["id"],
+          id : +objSrc["id"],
           image: objSrc["image"],
           description: objSrc["description"],
           title: objSrc["title"]
@@ -69,6 +69,21 @@ export class Helper {
         return gallery;
     }
     return null;
+  }
+
+  /**
+   * Is empty
+   * @param {string} value
+   * @returns {boolean}
+   */
+  isEmpty(value: string){
+    if(value == null){
+      return true;
+    }
+    if(value.trim().length == 0){
+      return true;
+    }
+    return false;
   }
 
   /**

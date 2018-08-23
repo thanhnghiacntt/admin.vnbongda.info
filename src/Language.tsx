@@ -38,7 +38,17 @@ export default {
     "key": "Key",
     "category": "Category",
     "post": "Post",
-    "gallery": "Gallery"
+    "gallery": "Gallery",
+    "slug": "Slug",
+    "parentid": "Parent id",
+    "orderby": "Order by",
+    "name": "Name",
+    "description": "Description",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "errornameempty": "Name is empty",
+    "errorslugempty": "Slug is empty"
   },
   "vi": {
     "home": "Trang chủ",
@@ -79,6 +89,16 @@ export default {
     "key": "Key",
     "category": "Danh mục",
     "post": "Bài đăng",
-    "gallery": "Quản lý hình ảnh"
+    "gallery": "Quản lý hình ảnh",
+    "slug": "Slug",
+    "parentid": "Id cha",
+    "orderby": "Thứ tư trong cùng cha",
+    "name": "Tên",
+    "description": "Mô tả",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "add": "Thêm mới",
+    "errornameempty": "Tên bị trống",
+    "errorslugempty": "Slug bị trống"
   }
 }

@@ -7,25 +7,25 @@ export default interface CategoryEntity extends Model{
   /**
    * Name category
    */
-  name: string;
+  name?: string;
 
   /**
    * Description category
    */
-  description: string;
+  description?: string;
 
   /**
    * Slug category
    */
-  slug: string;
+  slug?: string;
 
   /**
    * Parent id category
    */
-  parentId: number;
+  parentId?: number;
 
   /**
    * Order by category
    */
-  orderBy: number
+  orderBy?: number
 }
