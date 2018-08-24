@@ -1,4 +1,5 @@
 import {Authentication} from "./Authentication";
+import {Helper} from "./Helper";
 
 export interface RequestHeaders {
   [key: string]: string
@@ -155,6 +156,9 @@ export class HttpClient {
       for (let key in this.headers){
         request.setRequestHeader(key, this.headers[key]);
       }
+    }
+    if(Authentication.isLogin()){
+      request.setRequestHeader("Authorization", "Bearer" + Authentication.getToken());
     }
     request.setRequestHeader("lang", Authentication.getLanguage());
 

@@ -83,7 +83,10 @@ export class AdminCategory extends React.Component<HomeProps, AdminCategoryState
               <div className="col-md-5"></div>
             </div>
           </div>:
-          <AdminCategoryEdit category={this.state.category} onCancel={()=>this.onCancel()}/>
+          <AdminCategoryEdit category={this.state.category}
+                             list={this.state.list}
+                             onCancel={()=>this.onCancel()}
+                             onSave={()=>this.onCancel()}/>
       }
     </div>);
   }
@@ -95,7 +98,6 @@ export class AdminCategory extends React.Component<HomeProps, AdminCategoryState
   edit(id: number){
     this.state.list.map((value)=> {
       if(value.id == id){
-        debugger;
         this.setState({category: value, status: Status.EDIT});
       }
     })

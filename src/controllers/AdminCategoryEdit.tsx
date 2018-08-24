@@ -8,6 +8,7 @@ export interface AdminCategoryEditProps {
   category?: CategoryEntity;
   onCancel?: Function;
   onSave?: Function;
+  list?: Array<CategoryEntity>;
 }
 
 export interface AdminCategoryEditState{
@@ -82,14 +83,17 @@ export class AdminCategoryEdit extends React.Component<AdminCategoryEditProps, A
         <div className="row">
           <div className="col-md-3"><Label>{this.strings.parentid}</Label></div>
           <div className="col-md-6">
-            <div className="form-group has-danger">
-              <div className="input-group mb-2 mr-sm-2 mb-sm-0">
-                <input type="number" name="email"
-                       className="form-control"
-                       value={this.state.category.parentId}
-                       onChange={(event) => {this.state.category.parentId = +event.target.value; this.setState({})}}
-                       placeholder="0" autoFocus={true}/>
-              </div>
+            <div className="form-group">
+              <select className="form-control" onChange={(value) => {this.onSelect(value)}}>
+                <option id="0" key="-1" selected={this.state.category != null && this.state.category.id == 0}>None</option>
+              {
+                this.props.list != null && this.props.list.length > 0 ?
+                this.props.list.map((value, index, array)=>{
+                  return <option key={value.id} id={value.id + ""} selected={this.state.category.id == value.id}>{value.name}</option>
+                }): null
+              }
+              </select>
+
             </div>
           </div>
           <div className="col-md-3"/>
@@ -115,7 +119,7 @@ export class AdminCategoryEdit extends React.Component<AdminCategoryEditProps, A
             <div className="form-group has-danger">
               <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                 <button type="button"
-                        onClick={()=>this.props.onCancel()}
+                        onClick={()=>this.cancel()}
                         className="btn btn-primary btn-lg btn-block">Calcel</button>
               </div>
             </div>
@@ -144,15 +148,33 @@ export class AdminCategoryEdit extends React.Component<AdminCategoryEditProps, A
       </div>);
   }
 
+  /**
+   * On select
+   * @param value
+   */
+  onSelect(value:any){
+    this.state.category.parentId = + value.target.selectedOptions[0].id;
+  }
+
+  /**
+   * Save
+   */
   save(){
     if(Helper.isEmpty(this.state.category.name)){
       this.setState({errorMessage: this.strings.errornameempty})
     }else if(Helper.isEmpty(this.state.category.slug)){
       this.setState({errorMessage: this.strings.errorslugempty})
     }else{
-      this.categoryService.save("", this.state.category, (value)=>{
-
+      this.categoryService.save("create", this.state.category, (value)=>{
+        this.props.onSave != null? this.props.onSave(value) : null;
       });
     }
+  }
+
+  /**
+   * Cancel
+   */
+  cancel(){
+    this.props.onCancel != null ? this.props.onCancel() : null;
   }
 }
